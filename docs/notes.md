@@ -1,3 +1,20 @@
+#2025-08-30
+
+-Query to select the data we want to graph:
+SELECT Country, Year, Population_Growth_rate 
+FROM countries 
+WHERE Population_Growth_rate IS NOT NULL
+ORDER BY Country, Year;
+
+Accomplishments.
+-We create a visualization in apacheecharts using the countries database
+-we could organize the information by coutry,year ,population growth with some tools we found : DB browser  for sqlite
+-We tried claude: Its a good to guide us,but sometimes the code is very confusing
+
+For the next time
+-i will complete the informatiog to get a great graphic
+-We will look how to automate the data into the chart
+
 # 2025-08-26
 Vision
 -Create graphics 
@@ -17,7 +34,7 @@ Action plans
 "Country","Year","GDP (in Trillions USD)","GDP per Capita (in USD)","Inflation Rate (%)","Population (in Millions)","Population Growth Rate (%)","Urban Population (%)","Life Expectancy (Years)","Healthcare Expenditure per Capita (USD)","Doctor-to-Patient Ratio","Literacy Rate (%)","Education Expenditure as % of GDP","Internet Penetration (%)","Smartphone Adoption (%)","Energy Consumption (TWh)","Renewable Energy Share (%)","Military Expenditure (in Billion USD)","Number of Active Military Personnel","CO2 Emissions (Million Metric Tons)","Forest Coverage (%)","Number of Airports","Road Network Length (in km)","Public Transport Usage (%)","Human Development Index (HDI)","Gender Equality Index","Poverty Rate (%)","Number of International Visitors (in Millions)","Tourism Revenue (in Billion USD)","Agricultural Land (%)","Unemployment Rate (%)","Labor Force Participation Rate (%)","Crime Rate (per 100,000)","Corruption Perception Index","Freedom of Press Index","Voting Participation Rate (%)"
 
 Interesting data:
-
+Year
 -Country
 -Inflation Rate(%)
 -Population growth Rate(%)
