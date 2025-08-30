@@ -1,3 +1,38 @@
+# 2025-08-26
+Vision
+-Create graphics 
+-Undestand Java script
+-Undesrtand html
+
+Goals
+-I can understand java script
+-I can create some graphics 
+-I want to show the information: Lorena,Alejandra,Marcela
+
+Action plans
+-look for some examples to understand the structure and analyze it
+-Pick up some graphics /i want to create according with the information
+-Show the information sending the link by email
+
+"Country","Year","GDP (in Trillions USD)","GDP per Capita (in USD)","Inflation Rate (%)","Population (in Millions)","Population Growth Rate (%)","Urban Population (%)","Life Expectancy (Years)","Healthcare Expenditure per Capita (USD)","Doctor-to-Patient Ratio","Literacy Rate (%)","Education Expenditure as % of GDP","Internet Penetration (%)","Smartphone Adoption (%)","Energy Consumption (TWh)","Renewable Energy Share (%)","Military Expenditure (in Billion USD)","Number of Active Military Personnel","CO2 Emissions (Million Metric Tons)","Forest Coverage (%)","Number of Airports","Road Network Length (in km)","Public Transport Usage (%)","Human Development Index (HDI)","Gender Equality Index","Poverty Rate (%)","Number of International Visitors (in Millions)","Tourism Revenue (in Billion USD)","Agricultural Land (%)","Unemployment Rate (%)","Labor Force Participation Rate (%)","Crime Rate (per 100,000)","Corruption Perception Index","Freedom of Press Index","Voting Participation Rate (%)"
+
+Interesting data:
+
+-Country
+-Inflation Rate(%)
+-Population growth Rate(%)
+-Life Expectancy (Years)
+-Doctor-to-Patient Ratio
+-Literacy Rate (%)
+-Education Expenditure as % of GDP
+-Energy Consumption (TWh)
+-CO2 Emissions (Million Metric Tons)
+-Forest Coverage (%)
+
+
+
+
+
 ## 2025-08-13
 Accomplishments:
 -We linked the domain with the website.

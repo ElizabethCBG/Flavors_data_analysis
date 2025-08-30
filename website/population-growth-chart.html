@@ -1,0 +1,295 @@
+
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=line-stack
+
+
+TITLE: Data Visusalization for Charting Population Growth, per country, per year
+UPDATED: 2025-08-30 / JRO & Elizabeth
+
+TO-DO
+- Change the Y axis values to match the data
+- How to get the data from the database into the chart format - currently doing it manually, how to automate it?
+    - Ideas: Use Python to export database data as JSON (Javascript Object Notation)
+    - Idea: Use Javascript to read the SQLite database - maybe need an API?
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+<!-- 
+TEST DATA
+
+Australia	2000.0	1.26
+Australia	2001.0	1.29
+Australia	2002.0	1.3
+Australia	2003.0	1.32
+Australia	2004.0	1.32
+Australia	2005.0	1.33
+Australia	2006.0	1.35
+Australia	2007.0	1.28
+Australia	2008.0	1.28
+Australia	2009.0	1.29
+Australia	2010.0	1.25
+Australia	2011.0	1.35
+Australia	2012.0	1.3
+Australia	2013.0	1.3
+Australia	2014.0	1.26
+Australia	2015.0	1.32
+Australia	2016.0	1.34
+Australia	2017.0	1.32
+Australia	2018.0	1.31
+Australia	2019.0	1.35
+Australia	2020.0	1.3
+Australia	2021.0	1.27
+Australia	2022.0	1.35
+Australia	2023.0	1.36
+Canada	2000.0	0.9
+Canada	2001.0	0.93
+Canada	2002.0	0.95
+Canada	2003.0	0.91
+Canada	2004.0	0.91
+Canada	2005.0	0.89
+Canada	2006.0	0.87
+Canada	2007.0	0.88
+Canada	2008.0	0.92
+Canada	2009.0	0.92
+Canada	2010.0	0.87
+Canada	2011.0	0.94
+Canada	2012.0	0.9
+Canada	2013.0	0.91
+Canada	2014.0	0.86
+Canada	2015.0	0.9
+Canada	2016.0	0.91
+Canada	2017.0	0.87
+Canada	2018.0	0.91
+Canada	2019.0	0.87
+Canada	2020.0	0.88
+Canada	2021.0	0.87
+Canada	2022.0	0.94
+Canada	2023.0	0.93
+China	2000.0	0.31
+China	2001.0	0.3
+China	2002.0	0.31
+China	2003.0	0.29
+China	2004.0	0.29
+China	2005.0	0.29
+China	2006.0	0.3
+China	2007.0	0.3
+China	2008.0	0.28
+China	2009.0	0.3
+China	2010.0	0.3
+China	2011.0	0.31
+China	2012.0	0.29
+China	2013.0	0.3
+China	2014.0	0.31
+China	2015.0	0.3
+China	2016.0	0.29
+China	2017.0	0.3
+China	2018.0	0.31
+China	2019.0	0.3
+China	2020.0	0.29
+China	2021.0	0.29
+China	2022.0	0.29
+China	2023.0	0.29
+India	2000.0	1.04
+India	2001.0	0.97
+India	2002.0	1.03
+India	2003.0	0.95
+India	2004.0	0.98
+India	2005.0	1.05
+India	2006.0	1.04
+India	2007.0	1.03
+India	2008.0	1.01
+India	2009.0	1.03
+India	2010.0	0.98
+India	2011.0	1.02
+India	2012.0	1.02
+India	2013.0	1.01
+India	2014.0	0.97
+India	2015.0	0.99
+India	2016.0	1.04
+India	2017.0	0.96
+India	2018.0	0.98
+India	2019.0	0.96
+India	2020.0	0.99
+India	2021.0	0.96
+India	2022.0	1.04
+India	2023.0	1.03
+Russia	2000.0	0.1
+Russia	2001.0	0.1
+Russia	2002.0	0.1
+Russia	2003.0	0.1
+Russia	2004.0	0.1
+Russia	2005.0	0.1
+Russia	2006.0	0.1
+Russia	2007.0	0.1
+Russia	2008.0	0.1
+Russia	2009.0	0.1
+Russia	2010.0	0.1
+Russia	2011.0	0.1
+Russia	2012.0	0.1
+Russia	2013.0	0.1
+Russia	2014.0	0.1
+Russia	2015.0	0.1
+Russia	2016.0	0.1
+Russia	2017.0	0.1
+Russia	2018.0	0.1
+Russia	2019.0	0.1
+Russia	2020.0	0.1
+Russia	2021.0	0.1
+Russia	2022.0	0.1
+Russia	2023.0	0.1
+USA	2000.0	0.58
+USA	2001.0	0.62
+USA	2002.0	0.57
+USA	2003.0	0.62
+USA	2004.0	0.59
+USA	2005.0	0.62
+USA	2006.0	0.62
+USA	2007.0	0.61
+USA	2008.0	0.58
+USA	2009.0	0.57
+USA	2010.0	0.61
+USA	2011.0	0.62
+USA	2012.0	0.63
+USA	2013.0	0.6
+USA	2014.0	0.61
+USA	2015.0	0.6
+USA	2016.0	0.57
+USA	2017.0	0.61
+USA	2018.0	0.6
+USA	2019.0	0.61
+USA	2020.0	0.58
+USA	2021.0	0.62
+USA	2022.0	0.62
+USA	2023.0	0.59
+  -->
+
+
+
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  title: {
+    text: 'Population Growth by Country over Time'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['Australia', 'India', 'Canada', 'USA', 'China', 'Russia']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['2021', '2022', '2023']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: 'Australia',
+      type: 'line',
+      stack: 'Total',
+      /*Australia	2021.0	1.27
+Australia	2022.0	1.35
+Australia	2023.0	1.36*/
+      data: [1.27, 1.35, 1.36]
+    },
+    {
+      name: 'India',
+      type: 'line',
+      stack: 'Total',
+      /*India	2021.0	0.96
+India	2022.0	1.04
+India	2023.0	1.03*/
+      data: [0.96, 1.04, 1.03]
+    },
+    {
+      name: 'Canada',
+      type: 'line',
+      stack: 'Total',
+      /*Canada	2021.0	0.87
+Canada	2022.0	0.94
+Canada	2023.0	0.93*/
+      data: [0.87, 0.94, 0.93]
+    },
+
+    /*
+    {
+      name: 'USA',
+      type: 'line',
+      stack: 'Total',
+      data: [320, 332, 301, 334, 390, 330, 320]
+    },
+    {
+      name: 'China',
+      type: 'line',
+      stack: 'Total',
+      data: [820, 932, 901, 934, 1290, 1330, 1320]
+    },
+    {
+      name: 'Russia',
+      type: 'line',
+      stack: 'Total',
+      data: [820, 932, 901, 934, 1290, 1330, 1320]
+    }
+      */
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
